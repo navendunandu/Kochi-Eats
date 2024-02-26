@@ -1,0 +1,20 @@
+
+    <table align="center" border="1" cellpadding="5" >
+        <tr>
+            <td>Photo</td>
+            <td>Name</td>
+            <td>Contact</td>
+            <td>Place</td>
+            <td>Street</td>
+        </tr>
+        {% for i in shop %}
+        <tr>
+    <td><img src="{{shop.shop_photo.url}}" alt="" width="150" height="150"></td>
+    <td>{{i.shop_name}}</td>
+    <td>{{i.shop_contact}}</td>
+    <td>{{i.street.place.place_name}}</td>
+    <td>{{i.street.street_name}}</td>
+</tr>
+
+{% endfor %}
+</table>

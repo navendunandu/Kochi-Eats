@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1" cellpadding="5">
+        <tr>
+            <td>#</td>
+            <td>Date</td>
+            <td>Time</td>
+            <td>User</td>
+            <td>Count</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.booking_fordate}}</td>
+            <td>{{i.booking_fortime}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.booking_count}}</td>
+            <td>
+                {% if i.booking_status == 0 %}
+                Confirm Booking!!
+                {% elif i.booking_status == 1 %}
+                Booking Accepted
+                {% elif i.booking_status == 2 %}
+                Booking Rejected
+                {% endif %}
+            </td>
+            <td>
+                {% if i.booking_status == 0 %}
+                <a href="{% url 'webshop:AcceptBooking' i.id %}">Accept</a>
+                <br>
+                <a href="{% url 'webshop:RejectBooking' i.id %}">Reject</a>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% if msg %}
+<script>
+    alert('{{msg}}')
+    window.location='/Shop/ViewBooking/'
+</script>
+{% endif %}
+</html>

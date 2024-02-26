@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table align="center" border="1">
+            <tr>
+                <td>photo</td>
+                <td><img src="{{health.health_photo.url}}" alt="" width="150" height="150"</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{health.health_name}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{health.health_contact}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{health.health_email}}</td>
+            </tr>
+            
+            <tr>
+                <td>Address</td>
+                <td>{{health.health_address}}</td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td>{{health.place.place_name}}</td>
+            </tr>
+        </table>
+    </form>
+    
+</body>
+</html>

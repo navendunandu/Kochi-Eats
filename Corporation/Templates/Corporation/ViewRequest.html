@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+       <table border="1" cellpadding="10" align="center">
+        <tr>
+            <td>Shop name</td>
+            <td>Owner name</td>
+            <td>contact</td>
+            <td>Email</td>
+            <td>proof</td>
+            <td>Place</td>
+            <td>Street</td>
+            <td>Slot</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
+        {% for i in request %}
+        <tr>
+            <td>{{i.shop_id.shop_name}}</td>
+            <td>{{i.shop_id.owner_name}}</td>
+            <td>{{i.shop_id.shop_contact}}</td>
+            <td>{{i.shop_id.shop_email}}</td>
+            <td>{{i.shop_id.owner_proof}}</td>
+            <td>{{i.slot_id.street.place.place_name}}</td>
+            <td>{{i.slot_id.street.street_name}}</td>
+            <td>{{i.slot_id.slot_number}}</td>
+            <td>
+                {% if i.request_status == 1 %}
+                Request Accepted by Corporation
+                <br>
+                Waiting for Health Approval
+                {% elif i.request_status == 2 %}
+                Rejected by Corporation
+                {% elif i.request_status == 3 %}
+                Accepted by Health
+                <br>
+                Ready for LIcence issueing
+                {% elif i.request_status == 4 %}
+                Rejected by Health
+                {% elif i.request_status == 5  and i.shop_id.shop_liscence == '' %}
+                <a href="{% url 'webcorporation:Issue_license_no' i.id %}">IssueLicense No</a>
+                {% elif i.request_status == 5  and i.shop_id.shop_liscence != '' %}
+               {{i.shop_id.shop_liscence}}
+                {% endif %}
+            </td>
+            <td>
+                {% if i.request_status == 0 %}
+                <a href="{% url 'webcorporation:Accept_request' i.id %}">Accept</a>
+                <a href="{% url 'webcorporation:Reject_request' i.id %}">Reject</a>
+                {% elif i.request_status == 3 %}
+                <a>G</a>
+                <a href="{% url 'webcorporation:Issue_license' i.id %}">IssueLicense</a>
+                {% elif i.request_status == 5 %}
+
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+       </table>
+            </form>
+</body>
+</html>

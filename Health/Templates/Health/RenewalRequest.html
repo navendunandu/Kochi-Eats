@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1" cellpadding="10" align="center">
+        <tr>
+            <td>Shop name</td>
+            <td>Owner name</td>
+            <td>contact</td>
+            <td>Email</td>
+            <td>proof</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{i.shop_id.shop_name}}</td>
+            <td>{{i.shop_id.owner_name}}</td>
+            <td>{{i.shop_id.shop_contact}}</td>
+            <td>{{i.shop_id.shop_email}}</td>
+            <td>{{i.shop_id.owner_proof}}</td>
+            <td>
+                {% if i.renewal_status == 1 %}
+                Request Accepted by Corporation
+                <br>
+                Waiting for Health Approval
+                {% elif i.renewal_status == 2 %}
+                Rejected by Corporation
+                {% elif i.renewal_status == 3 %}
+                Accepted by Health
+                <br>
+                Ready for LIcence issueing
+                {% elif i.renewal_status == 4 %}
+                Rejected by Health
+                {% elif i.renewal_status == 5 %}
+                License Issued
+                {% endif %}
+            </td>
+            <td>
+                {% if i.renewal_status == 1 %}
+                <a href="{% url 'webhealth:RenewalReqAccpt' i.id %}">Accept</a>
+                <a href="{% url 'webhealth:RenewalReqRej' i.id %}">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+       </table>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        {% csrf_token %}
+        <table align="center" border="1" cellpadding="5" id="UserForm" data-street-url="{% url 'webuser:AjaxShop'  %}"  data-shop-url="{% url 'webuser:AjaxSearch'  %}">
+            <tr>
+                <td>Place</td>
+                <td><select name="txt_place" id="sel_place" >
+                    <option value="">select</option>
+                    {% for i in displace %}
+                    <option 
+                    value="{{i.id}}">{{i.place_name}}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <td>street</td>
+                <td><select name="txt_street" id="sel_street" >
+                    <option value="">select</option>
+                </select></td>
+            </tr>
+            
+           
+        </table>
+    
+        <div id="sel_shop"> 
+       <table align="center" border="1" cellpadding="5" >
+        <tr>
+            <td>Photo</td>
+            <td>Name</td>
+            <td>Contact</td>
+            <td>Place</td>
+            <td>Street</td>
+            <td>Book</td>
+        </tr>
+        {% for i in shop %}
+        <tr>
+            <td><img src="{{shop.shop_photo.url}}" alt="" width="150" height="150"></td>
+            <td>{{i.shop_name}}</td>
+            <td>{{i.shop_contact}}</td>
+            <td>{{i.street.place.place_name}}</td>
+            <td>{{i.street.street_name}}</td>
+            <td><a href="{% url 'webuser:TableBooking' i.id  %}">Book a Table</a></td>
+        </tr>
+        {% endfor %}
+       </table>
+     </div>
+    </form>
+</body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_place").change(function () {
+            var did = $(this).val();
+            var ur = $("#UserForm").attr("data-street-url");
+            $.ajax({
+                url: ur,
+                data: { STREET: did, },
+                success: function (data) {
+                    $("#sel_street").html(data);
+                },
+            });
+        });
+
+     $("#sel_street").change(function () {
+            var did = $(this).val();
+            var ur = $("#UserForm").attr("data-shop-url");
+            $.ajax({
+                url: ur,
+                data: { SHOP: did, },
+                success: function (data) {
+                    $("#sel_shop").html(data);
+                },
+            });
+        }); 
+</script>

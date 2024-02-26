@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table  border="1" cellpadding="10" align="center">
+            <tr>
+                <td>Food Name</td>
+                <td><input type="text"  name="txt_foodname" id=""></td>
+            </tr>
+            <tr>
+                <td>Food Photo</td>
+                <td><input type="file"  name="txt_foodphoto" id=""></td>
+            </tr>
+               
+           
+            <tr>
+                <td>Food Rate</td>
+                <td><input type="text"  name="txt_foodrate" id=""></td>
+            </tr>
+            <tr>
+                <td>Food Description</td>
+                <td><input type="text"  name="txt_fooddescription" id=""></td>
+            </tr>
+            
+            <tr>
+                <td><input type="submit" name="txt_submit" value="submit">
+                    <input type="reset" name="txt_cancel" value="cancel">
+                </td>
+                
+            </tr>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+                  
+                <table border="1" cellpadding="10" align="center">
+                
+                    <tr>
+                        <td>sl.no</td>
+                        <td>Food</td>
+                        <td>Action</td>
+                    </tr>
+                    {% for i in fdata %}
+                    <tr>
+
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.food_name}}</td>
+                        <td><a href="{% url 'webshop:Del_food' i.id %}">Delete</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+
+               
+                 </table>
+                  
+        </table>
+    </form>
+</body>
+</html>
