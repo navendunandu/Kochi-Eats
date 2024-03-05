@@ -14,4 +14,6 @@ urlpatterns = [
     path('AjaxShop/',views.AjaxShop,name='AjaxShop'),
     path('AjaxSearch/',views.AjaxSearch,name='AjaxSearch'),
     path('TableBooking/<int:id>',views.ShopTable,name='TableBooking'),
+    path('Payment/<int:id>',views.Payment,name='Payment'),
+    path('Success/',views.Success,name='Success'),
 ]

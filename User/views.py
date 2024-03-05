@@ -10,6 +10,17 @@ def UserBooking(request):
     booking=tbl_booking.objects.filter(user=userdata)
     return render(request,'User/UserBooking.html',{'data':booking})
 
+def Payment(request,id):
+    bookingdata=tbl_booking.objects.get(id=id)
+    if request.method == 'POST':
+        bookingdata.booking_status='3'
+        bookingdata.save()
+        return render(request, 'User/Success.html')
+    return render(request, 'User/Payment.html')
+
+def Success(request):
+    return render(request, 'User/Success.html')
+
 def Complaint(request):
     cdata=tbl_complaint.objects.all()
     user=tbl_newuser.objects.get(id=request.session['uid'])

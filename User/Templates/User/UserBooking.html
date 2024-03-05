@@ -25,8 +25,23 @@
             <td>{{i.booking_fortime}}</td>
             <td>{{i.booking_count}}</td>
             <td>{{i.shop.street.street_name}}, {{i.shop.street.place.place_name}}</td>
-            <td></td>
-            <td></td>
+            <td>
+                {% if i.booking_status == 0 %}
+                Booking Confirmation Pending
+                {% elif i.booking_status == 1 %}
+                Booking Confirmed.<br>
+                Booking Charges : 150.Rs
+                {% elif i.booking_status == 2 %}
+                Booking Rejected
+                {% elif i.booking_status == 3 %}
+                Payment Completed
+                {% endif %}
+            </td>
+            <td>
+                {% if i.booking_status == 1 %}
+                <a href="{% url 'webuser:Payment' i.id %}">Make Payment</a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </table>        
