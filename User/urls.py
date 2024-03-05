@@ -4,7 +4,7 @@ from User import views
 app_name="webuser"
 
 urlpatterns = [
-    path('UserHomePage/',views.UserHomePage,name='UserHomePage'),
+    path('',views.UserHomePage,name='UserHomePage'),
     path('UserBooking/',views.UserBooking,name='UserBooking'),
     path('Complaint/',views.Complaint,name='Complaint'),
     path('UserMyProfile/',views.UserMyProfile,name='UserMyProfile'),

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    WELCOME
+  <a href="{% url 'webshop:Food'  %}">Food</a>
+  <a href="{% url 'webshop:MyProfile'  %}">MyProfile</a>
+  <a href= "{% url 'webshop:EditProfile'  %}">EditProfile</a>
+  <a href= " {% url 'webshop:ChangePassword'  %}">ChangePassword</a>
+  <a href= "{% url 'webshop:Request'  %}">Request</a>
+  <a href= "{% url 'webshop:ViewStatus'  %}">ViewStatus</a>
+  <a href= "{% url 'webshop:ViewRenewal'  %}">View Renewal Requests</a>
+  {% if data.shop_status == 2 %}
+  <a href= "{% url 'webshop:Renewal'  %}">Renewal</a>
+  {% endif %}
+  
+
+  
+
+
+</body>
+{% if msg %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endif %}
+{% if rmsg %}
+<script>
+    alert('{{rmsg}}')
+    window.location='/Shop/ShopHomePage/'
+</script>
+{% endif %}
+</html>

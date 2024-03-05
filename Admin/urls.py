@@ -12,7 +12,7 @@ urlpatterns = [
     path('del_street/<int:did>',views.del_street,name='Del_street'),
     path('Update_street/<int:did>',views.up_street,name='Update_street'),
     path('HealthRegistration/',views.healthregistration,name='healthregistration'),
-    path('AdminHomePage/',views.AdminHomePage,name='AdminHomePage'),
+    path('',views.AdminHomePage,name='AdminHomePage'),
     path('AdminMyProfile/',views.AdminMyProfile,name='AdminMyProfile'),
     path('Slot/',views.Slot,name='Slot'),
 

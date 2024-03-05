@@ -1,52 +1,68 @@
+{% extends 'Shop/Header.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .card {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
 </head>
+
 <body>
     <form action="" method="POST">
         {% csrf_token %}
-        <table align="center" border="1">
-            <tr>
-                <td>photo</td>
-                <td><img src="{{shop.shop_photo.url}}" alt="" width="150" height="150"></td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>{{shop.shop_name}}</td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td>{{shop.shop_contact}}</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>{{shop.shop_email}}</td>
-            </tr>
-        
-            <tr>
-                <td>Address</td>
-                <td>{{shop.shop_address}}</td>
-            </tr>
-            <tr>
-                <td>Place</td>
-                <td>{{shop.place.place_name}}</td>
-            </tr>
-            {%  if shop.shop_liscence != '' %}
-            <tr>
-                <td>License</td>
-                <td>{{shop.shop_liscence}}</td>
-            </tr>
-            {% else %}
-            <tr>
-                <td>License</td>
-                <td>Not issued</td>
-            </tr>
-            {% endif %}
-        </table>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card p-4">
+                        <div class="text-center">
+                            <img src="{{shop.shop_photo.url}}" alt="Shop Photo" class="profile-img">
+                        </div>
+                        <h2 class="text-center mt-3">{{shop.shop_name}}</h2>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Contact:</strong> {{shop.shop_contact}}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Email:</strong> {{shop.shop_email}}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Address:</strong> {{shop.shop_address}}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Place:</strong> {{shop.place.place_name}}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>License:</strong>
+                                {% if shop.shop_license != '' %}
+                                {{shop.shop_license}}
+                                {% else %}
+                                Not issued
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
-    
+
 </body>
+
 </html>
+{% endblock content %}

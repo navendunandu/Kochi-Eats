@@ -6,15 +6,18 @@ from User.models import *
 from datetime import datetime, timedelta
 # Create your views here.
 def ShopHomePage(request):
-    shopdata=tbl_shopregistration.objects.get(id=request.session['sid'])
-    if(shopdata.shop_liscencedate!=''):
+    shopdata = tbl_shopregistration.objects.get(id=request.session['sid'])
+    
+    if shopdata.shop_liscencedate is not None and shopdata.shop_liscencedate != '':
         registered_date = shopdata.shop_liscencedate
         expiry_date = registered_date + timedelta(days=365)
+        
         if expiry_date <= datetime.now().date():
-            shopdata.shop_status=2
+            shopdata.shop_status = 2
             shopdata.save()
-            return render(request, 'Shop/ShopHomePage.html', {'msg':'License Expired', 'data': shopdata})
-    return render(request,'Shop/ShopHomePage.html', {'data': shopdata})
+            return render(request, 'Shop/ShopHomePage.html', {'msg': 'License Expired', 'data': shopdata})
+    
+    return render(request, 'Shop/ShopHomePage.html', {'data': shopdata})
 
 def Food(request):
     fdata=tbl_food.objects.all()
@@ -84,9 +87,8 @@ def Request(request):
     street=tbl_street.objects.all()
     place=tbl_place.objects.all()
     if request.method=="POST":
-        tbl_request.objects.create(shop_id=tbl_shopregistration.objects.get(id=request.POST.get("select")),
-                                    slot_id=tbl_slot.objects.get(id=request.POST.get("select")), 
-                                    date=request.POST.get("txt_date"))
+        tbl_request.objects.create(shop_id=tbl_shopregistration.objects.get(id=request.session['sid']),
+                                    slot_id=tbl_slot.objects.get(id=request.POST.get("txtslot")))
         return render(request,'Shop/Request.html',{'Data':slot,'StreetData':street,'Pdata':place})
     else:
         return render(request,'Shop/Request.html',{'Data':slot,'StreetData':street,'Pdata':place})

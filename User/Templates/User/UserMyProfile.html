@@ -1,44 +1,56 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .card {
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .profile-img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+    }
+    </style>
 </head>
 <body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table align="center" border="1">
-            <tr>
-                <td>photo</td>
-                <td><img src="{{user.user_photo.url}}" alt="" width="150" height="150"</td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>{{user.user_name}}</td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td>{{user.user_contact}}</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>{{user.user_email}}</td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td>{{user.user_gender}}</td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td>{{user.user_address}}</td>
-            </tr>
-            <tr>
-                <td>Place</td>
-                <td>{{user.place.place_name}}</td>
-            </tr>
-        </table>
-    </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="card p-4">
+              <div class="text-center">
+                <img src="{{user.user_photo.url}}" alt="User Photo" class="profile-img">
+              </div>
+              <h2 class="text-center mt-3">{{user.user_name}}</h2>
+              <div class="text-center mb-3">
+                <span class="badge badge-primary">{{user.user_gender}}</span>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <strong>Contact:</strong> {{user.user_contact}}
+                </li>
+                <li class="list-group-item">
+                  <strong>Email:</strong> {{user.user_email}}
+                </li>
+                <li class="list-group-item">
+                  <strong>Address:</strong> {{user.user_address}}
+                </li>
+                <li class="list-group-item">
+                  <strong>Place:</strong> {{user.place.place_name}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     
 </body>
 </html>
+{% endblock content %}

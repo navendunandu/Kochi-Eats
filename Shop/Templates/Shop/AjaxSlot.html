@@ -1,5 +1,41 @@
-<option 
-value="">select</option>
-{% for i in slot %}
-<option value="{{i.id}}">{{i.slot_number}}</option>
-{% endfor %}
+{% load mathfilters %}
+<div class="street">
+    <div class="top">
+        {% for i in slot %}
+        <div class="slots"
+        {% if i.shop_status == 0%}
+        class="slots"
+         onclick="toggleSlot(this, {{i.id}})"
+         {% else %}
+         class="slots"
+         {% endif %}
+         >
+            <label for="slot1" class="slot {% if i.shop_status == 1%} disabled {% endif %}">
+                <i class="fas fa-store"></i>
+               Slot
+                {{i.slot_number}}
+                {% if i.shop_status == 1%}
+                
+                    Booked
+                
+                {% endif %}
+            </label>
+        </div>
+        {% if forloop.counter == 4 %}
+            </div>
+            <div class="road">
+                <div class="divider">
+                    <div class="white"></div>
+                    <div class="white"></div>
+                    <div class="white"></div>
+                    <div class="white"></div>
+                    <div class="white"></div>
+                </div>
+            </div>
+            <div class="bottom">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<br>
+<input type="submit" name="txt_submit" value="submit" class='btn btn-success'>
